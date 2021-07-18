@@ -1,0 +1,27 @@
+{
+  "name": "movies-and-subscribers-management-system",
+  "version": "1.0.0",
+  "description": "A web application for Movies &amp; Subscription management.",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon main"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/alexmor987/movies-and-subscribers-management-system.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/alexmor987/movies-and-subscribers-management-system/issues"
+  },
+  "homepage": "https://github.com/alexmor987/movies-and-subscribers-management-system#readme",
+  "dependencies": {
+    "axios": "^0.21.1",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "mongoose": "^5.13.3",
+    "nodemon": "^2.0.12"
+  }
+}
