@@ -1,14 +1,36 @@
 const express=require('express');
-const membersBL=require('../models/membersBL');
-const moviesBL=require('../models/moviesBL');
+const subscriptionsBL=require('../models/subscriptionsBL');
 const router=express.Router();
 
 
-//Get all requests 
+//Get all Subscriptions 
 router.route('/').get(async function(req,res)
 {
-let allMembers=await membersBL.getAllMembers();
-return res.json(allMembers);
+let allSubscriptions=await subscriptionsBL.getAllSubscriptions();
+return res.json(allSubscriptions);
 })
-
+//Get Subscription by id
+router.route('/:id').get(async function(req,res)
+{
+let movie=await subscriptionsBL.getSubscription(req.params.id);
+return res.json(movie);
+})
+//Add  Subscription 
+router.route('/').post(async function(req,res)
+{
+let status=await subscriptionsBL.addSubscription(req.body);
+return res.json(status);
+})
+//Update  Subscription by id 
+router.route('/:id').put(async function(req,res)
+{
+let status=await subscriptionsBL.updateSubscription(req.params.id,req.body);
+return res.json(status);
+})
+//Delete  Subscription by id
+router.route('/:id').delete(async function(req,res)
+{
+let status=await subscriptionsBL.deleteSubscription(req.params.id);
+return res.json(status);
+})
 module.exports=router;

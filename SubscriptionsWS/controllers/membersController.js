@@ -9,7 +9,7 @@ router.route('/').get(async function(req,res)
 let allMembers=await membersBL.getAllMembers();
 return res.json(allMembers);
 })
-//Get  member 
+//Get  member by id
 router.route('/:id').get(async function(req,res)
 {
 let member=await membersBL.getMember(req.params.id);
@@ -21,13 +21,13 @@ router.route('/').post(async function(req,res)
 let status=await membersBL.addMember(req.body);
 return res.json(status);
 })
-//Update  member 
+//Update  member by id 
 router.route('/:id').put(async function(req,res)
 {
 let status=await membersBL.updateMember(req.params.id,req.body);
 return res.json(status);
 })
-//Delete  member 
+//Delete  member by id
 router.route('/:id').delete(async function(req,res)
 {
 let status=await membersBL.deleteMember(req.params.id);

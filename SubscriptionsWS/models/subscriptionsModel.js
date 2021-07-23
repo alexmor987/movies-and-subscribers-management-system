@@ -1,23 +1,9 @@
 let mongoose=require('mongoose');
 
+let Schema = mongoose.Schema,
+    ObjectId = Schema.ObjectId;
 let SubscriptionsSchema=new mongoose.Schema({
-            MemberId: (ObjectId),
-            Movies:[{ movieId :(ObjectId), date : Date}] 
-
-    });
-let MoviesSchema=new mongoose.Schema({
-            Name: String,
-            Email:String,
-            City:String
-        
-    });
-let MembersSchema=new mongoose.Schema({
-            Name: String,
-            Genres:[String],
-            Image:String,
-            Premiered:Date
-        
-    });
+            MemberId: ObjectId,
+            Movies:[{ movieId:ObjectId,date:Date}] 
+})
 module.exports=mongoose.model('subscriptions',SubscriptionsSchema);
-module.exports=mongoose.model('movies',MoviesSchema);
-module.exports=mongoose.model('members',MembersSchema);
