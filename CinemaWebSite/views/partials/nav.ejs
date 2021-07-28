@@ -1,0 +1,29 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav">
+        
+        <li class="nav-item">
+          <a class="nav-link" href="#">Movies</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Subscriptions</a>
+        </li>
+        <%if(isAdmin){%>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Users Management</a>
+              </li>
+       <% }%>
+        
+          <li class="nav-item">
+            <a class="nav-link" href="#">Sign Out</a>
+        </li>
+      </ul>
+    </div>
+    <div class="nav navbar-nav pull-md-right">
+        <ul class="nav navbar-nav">
+            <li class="nav-item">
+                <p class="navbar-text">Signed in as User: <%=username%></p>
+            </li>   
+        </ul>
+    </div>
+  </nav>

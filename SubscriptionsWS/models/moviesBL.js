@@ -4,7 +4,7 @@ const Movie=require('../models/moviesModel');
  * Get All movies from DB
  * @returns movies from DB -movies collection
  */
-exports.getAllMovies=async ()=>{
+exports.getAllMovies=()=>{
    return new Promise(async(resolve,reject)=>
    {
     Movie.find({},(err,data)=>{

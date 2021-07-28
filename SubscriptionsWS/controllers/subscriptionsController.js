@@ -12,8 +12,8 @@ return res.json(allSubscriptions);
 //Get Subscription by id
 router.route('/:id').get(async function(req,res)
 {
-let movie=await subscriptionsBL.getSubscription(req.params.id);
-return res.json(movie);
+let subscription=await subscriptionsBL.getSubscription(req.params.id);
+return res.json(subscription);
 })
 //Add  Subscription 
 router.route('/').post(async function(req,res)
