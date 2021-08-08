@@ -11,12 +11,29 @@ router.get('/', function(req, res, next) {
 router.post('/login',async function(req, res, next) {
   let isUserDataVerified= await loginBL.loginAuthentication(req.body.username,req.body.password);
   if ( typeof isUserDataVerified ==='object'){
-      res.render('menu',{ msg: '' ,isAdmin:isUserDataVerified.isAdmin,username:isUserDataVerified.UserName});
+      req.session["isAuthenticated"]=true;
+      req.session["username"]=isUserDataVerified.UserName;
+      req.session["isAdmin"]=isUserDataVerified.isAdmin;
+      res.redirect('/menu');
       }
       else
       {
         res .render('login',{msg:'UserName  or password are wrong!'});
       }
+});
+/* GET createAccount Page. */
+router.get('/createAccount', function(req, res, next) {
+  res.render('createAccount',{msg:""});
+});
+/* POST createAccount Page. */
+router.post('/createAccount',async function(req, res, next) {
+  let isUserDataVerified= await loginBL.usernameAuthentication(req.body.username);
+  if ( typeof isUserDataVerified ==='object'){
+  let status=await loginBL.passwordUpdate(isUserDataVerified._id,req.body);
+  console.log(status);
+  res.render('login',{msg:'Password updated successfully!'});
+  }
+  res .render('createAccount',{msg:'User does not exist!'});
 });
 module.exports = router
 

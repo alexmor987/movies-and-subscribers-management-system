@@ -1,26 +1,53 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
-    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<!------ Include the above in your HEAD tag ---------->
+<script src="https://kit.fontawesome.com/b789d2f351.js" crossorigin="anonymous"></script>
+<link rel='stylesheet' href='/stylesheets/login.css' />
     <title>Login</title>
   </head>
   <body>
-    <h1>Login</h1>
-    <div class="container">
-      <div class="wrap">
-          <p class="form-title">
-              Sign In</p>
-          <form action="/login"  class="login" method="POST" >
-          <input type="text" placeholder="Username" name="username"/>
-          <input type="password" placeholder="Password" name="password" />
-          <input type="submit" value="Sign In" class="btn btn-success btn-sm" />
-          </form>
-          <% if(msg != '') { %>
-              <center><div class="msg"><p><b><%= msg %></b></p></div></center>
-            
-        <% } %>
+    
+    <div class="wrapper fadeInDown">
+      <h1>Login</h1>
+      <div id="formContent">
+        <!-- Tabs Titles -->
+    
+        <!-- Icon -->
+        <div class="fadeIn first">
+         <div class="icon"><p><i class="far fa-user-circle" id="icon"></i></p> </div>
+        </div>
+    
+        <!-- Login Form -->
+        <form action="/login"  class="login" method="POST">
+          <input type="text" id="login" class="fadeIn second" placeholder="Username" name="username" required>
+          <input type="text" id="password" class="fadeIn third" placeholder="Password" name="password" required>
+          <input type="submit" class="fadeIn fourth" value="Log In">
+        </form>
+    
+        <!-- Create new account -->
+        <div id="formFooter">
+          New User?<a class="underlineHover" href="/login/createAccount">: Create account</a>
+        </div>
+        <% if(msg != '') { %>
+          <div class="alert alert-success">
+            <p><b><%= msg %></b></p>
+        </div>
+        
+    <% } %>
+      </div>
+    </div>
+
+
+
+       
       </div>
   </div>
 </div>

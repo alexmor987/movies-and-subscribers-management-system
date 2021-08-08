@@ -3,8 +3,11 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+var session = require('express-session');
 
-var loginController = require('./controllers/loginController');
+var loginController = require('./controllers/login');
+var menuController = require('./controllers/menu');
+var usersController = require('./controllers/users');
 const cors = require('cors');
 var app = express();
 
@@ -12,6 +15,8 @@ var app = express();
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
+
+app.use(session({secret: 'keyboard cat'}));
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -23,6 +28,8 @@ require('./configs/database');
 
 app.use('/', loginController);
 app.use('/login', loginController);
+app.use('/menu', menuController);
+app.use('/users', usersController);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
