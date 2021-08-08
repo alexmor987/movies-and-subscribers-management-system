@@ -36,19 +36,6 @@ exports.getUserById=async(id)=>
 }
 exports.createUser=async(obj)=>
 {
-/**
- * 
- * 
- * [Object: null prototype] {
-  fname: 'alex',
-  lname: 'mor',
-  username: 'all',
-  email: 'mi@aa.com',
-  sessiontime: '60',
-  permessions: [ 'View Movies', 'Create Movies', 'Delete Movies' ]
-}
- */
-
    let userIdFromDb=await usersDBDAL.addUser(obj);
 
    let newUserToJson={
@@ -72,12 +59,6 @@ exports.createUser=async(obj)=>
    let allUsersPermissionsFromjson=await permissionsJsonDAL.getUsersPermissions();
    allUsersPermissionsFromjson.permissions.push(newUserPermissionsToJson);
    permissionsJsonDAL.createUserPermissions(allUsersPermissionsFromjson) ;
-
-   //console.log(allUsersPermissionsFromjson);
-
-
-  // console.log(allUsersFromjson);
-
 }
 exports.updateUser=async(obj)=>
 {
@@ -142,5 +123,3 @@ exports.deleteUser=async(id)=>
     let user=await usersDBDAL.getUserById(id);
     return  user.isAdmin; 
  }
-
- //this.deleteUser("60fd3ac0285bf555eabf6fa0");
