@@ -36,7 +36,7 @@ exports.getAllMovies=()=>{
      let movie=new Movie({
       Name: obj.Name,
       Genres:obj.Genres,
-      Image:obj.Image,
+      Image:obj.Image ,
       Premiered:obj.Premiered
       })
       movie.save(err=>{
@@ -91,7 +91,7 @@ exports.populateMoviesCollection=async ()=>
       let allMovies=await moviesDAL.getAllMovies();
       let allMoviesData=allMovies.data;
       allMoviesData.forEach(element => {
-         let movie=new Movies({
+         let movie=new Movie({
             Name: element.name,
             Genres:element.genres,
             Image:element.image.medium,

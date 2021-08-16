@@ -32,8 +32,13 @@ router.post('/updateUser',async function(req, res, next) {
 });
 
 router.get('/deleteUser/:id',async function(req, res, next) {
+  if(req.session.isAuthenticated){
       await usersBL.deleteUser(req.params.id);
       res.redirect('/users');
+    }
+    else{
+      res.redirect("/login");
+    }
   });
 router.post('/addUser',async function(req, res, next) {
       await usersBL.createUser(req.body);
@@ -48,7 +53,5 @@ router.get('/addUser',async function(req, res, next) {
     res.redirect('/login')
   }
   });
-
-
 
 module.exports = router;

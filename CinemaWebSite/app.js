@@ -8,6 +8,7 @@ var session = require('express-session');
 var loginController = require('./controllers/login');
 var menuController = require('./controllers/menu');
 var usersController = require('./controllers/users');
+var moviesController = require('./controllers/movies');
 const cors = require('cors');
 var app = express();
 
@@ -30,6 +31,7 @@ app.use('/', loginController);
 app.use('/login', loginController);
 app.use('/menu', menuController);
 app.use('/users', usersController);
+app.use('/movies', moviesController);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

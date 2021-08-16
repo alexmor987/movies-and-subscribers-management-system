@@ -1,0 +1,25 @@
+<div class="row justify-content-between text-left">
+    <div class="form-group col-sm-6 flex-column d-flex"> <label class="form-control-label px-3">Movie Title<span class="text-danger"> *</span></label> <input type="text" id="Name" name="Name" placeholder="Enter Movie Title" required > </div>
+
+    <div class="form-group col-sm-6 flex-column d-flex">
+        <label class="form-control-label px-3">Premiered<span class="text-danger"> *</span></label> 
+        <input placeholder="Select date" type="date" id="Premiered" name="Premiered" class="form-control"></div>
+
+    </div>
+
+
+<div class="row justify-content-between text-left">
+    <div class="form-group col-sm-6 flex-column d-flex"> <label class="form-control-label px-3">Image URL<span class="text-danger"> *</span></label> <input type="url" id="Image" name="Image" placeholder="Enter Image URL" required > </div>
+    <div class="form-group col-sm-6 flex-column d-flex"> <label class="form-control-label px-3">Genres<span class="text-danger"> *</span></label> 
+        <select class="selectpicker" name="Genres" id="Genres" multiple required>
+     
+            <% generslist.forEach(x=>{ %>
+            <option value="<%=x%>" name="Genres"><%= x %></option>
+            <% }) %>    
+          </select>
+            </div>
+        </div>
+        <input type="text" id="movieid" name="movieid"  hidden >
+<div class="modal-footer">
+    <button type="submit" class="btn btn-primary">Save</button>
+</div>
