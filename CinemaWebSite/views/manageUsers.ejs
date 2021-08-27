@@ -39,12 +39,11 @@
                         <p class="title"><%= el.isAdmin?"Admin":"User"%></p>
                         <p class="description">
                           Username:<%= el.username %> <br>
-                          Session TimeOut (minutes):<%= el.sessionTimeOut %> <br>
+                          Session TimeOut (minutes):<span style="color: crimson;"> <%= el.isAdmin?"Unlimited":el.sessionTimeOut%></span> <br>
                           Permissions:<%=el.permissions%> <br>
                         </p>
                         <div class="social">
-                          <!-- <a href="/users/updateUser/<%= el.userid %>"></a> -->
-                    
+                        
 
                           <button type="button"  class="btn btn-link"  data-whatever="<%= el.userid %>" data-toggle="modal" data-target="#ModalUpdateUserForm" onclick="displayCreatedDate()">
                               <i class="fas fa-user-edit" id="editIcon"></i>

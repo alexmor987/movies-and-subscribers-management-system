@@ -8,7 +8,16 @@ $('#ModalUpdateUserForm').on('show.bs.modal',async function (event) {
   console.log(data);
   var modal = $(this);
   modal.find('.modal-body #username').val(data.username);
-  modal.find('.modal-body #sessiontime').val(data.sessionTimeOut);
+  if(data.isAdmin){
+    modal.find('.modal-body #sessiontime').val("Unlimited");
+    document.getElementById("sessiontime").disabled =true ;
+  }
+  else{
+    modal.find('.modal-body #sessiontime').val(data.sessionTimeOut);
+    document.getElementById("sessiontime").disabled =false ;
+  
+  }
+  
   const fullname = data.fullname.split(' ');
 
   modal.find('.modal-body #fname').val(fullname[0]);
@@ -47,6 +56,11 @@ for (const option of document.querySelectorAll('#permissions option')) {
         var T = document.getElementById("concealedCreatedDate");
         T.style.display = "block";  // <-- Set it to block
     }
+    function displaySessiontime() {
+      var T = document.getElementById("sessiontime");
+      T.style.display = "block";  // <-- Set it to block
+  }
+    
 
   $('.delete_button').click(function(e){
       var result = confirm("Are you sure you want to delete this user?");

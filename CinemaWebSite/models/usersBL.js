@@ -31,7 +31,7 @@ exports.getUserById=async(id)=>
 {
    let allUsersFromjson=await usersJsonDAL.getUsers();
    
-   let user=allUsersFromjson.users.find(x=>x.id===id);
+   let user=allUsersFromjson.users.find(x=>x.id===id.toString());
   
    let data={userid:user.id,fullname:user.Fname+" "+user.Lname,
                    email:user.Email,
@@ -81,7 +81,6 @@ exports.createUser=async(obj)=>
 exports.updateUser=async(obj)=>
 {
    await usersDBDAL.updateUser(obj);
-
    let allusers=await usersJsonDAL.getUsers();
         let idsFromUsersJson =allusers.users.map(x=>x.id);
         let indexOfIdFromUsersJson=idsFromUsersJson.indexOf(obj.userid); 
@@ -92,7 +91,7 @@ exports.updateUser=async(obj)=>
       Email: obj.email,
       Lname:obj.lname,
       CreatedDate:obj.CreatedDate,
-      SessionTimeOut:parseInt(obj.sessiontime)
+      SessionTimeOut:obj.isAdmin==='true'?999:parseInt(obj.sessiontime)
    };
    usersJsonDAL.createUser(allusers) ;
 

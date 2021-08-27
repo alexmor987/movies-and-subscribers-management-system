@@ -18,15 +18,17 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
 
+
+app.use(cors());
+require('./configs/database');
+
+
 app.use(session({secret: 'keyboard cat'}));
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-app.use(cors());
-require('./configs/database');
-
 
 app.use('/', loginController);
 app.use('/login', loginController);
