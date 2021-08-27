@@ -7,7 +7,8 @@ router.get('/',async function(req, res, next) {
   {
      let allMovies=await  moviesBL.getAllMovies();
      let generslist=await  moviesBL.getGenersList();
-      res.render('movies',{isAdmin:req.session.isAdmin,username:req.session.username,data:allMovies,msg:"",pageAddMovie:false,generslist:generslist});
+      res.render('movies',{isAdmin:req.session.isAdmin,username:req.session.username,
+        data:allMovies,msg:"",pageAddMovie:false,generslist:generslist});
    }
   else
   {
@@ -49,7 +50,25 @@ router.post('/addMovie',async function(req, res, next) {
 router.post('/searchMovies',async function(req, res, next) {
   if(req.session.isAuthenticated) {
       let resultOfSearchMovies=await moviesBL.searchMovies(req.body);
-      res.render('movies',{isAdmin:req.session.isAdmin,username:req.session.username,data:resultOfSearchMovies,msg:"No data found!",pageAddMovie:false});
+      let generslist=await  moviesBL.getGenersList();
+      res.render('movies',{isAdmin:req.session.isAdmin,username:req.session.username,
+        data:resultOfSearchMovies,msg:"No data found!",pageAddMovie:false,generslist:generslist});
+      
+    }
+  else
+    {
+    res.redirect('/login');
+    }
+  
+});
+router.get('/searchMovies/:id',async function(req, res, next) {
+  if(req.session.isAuthenticated) {
+      let result=await moviesBL.searchMovieById(req.params.id);
+      let generslist=await  moviesBL.getGenersList();
+      
+      
+      res.render('movies',{isAdmin:req.session.isAdmin,username:req.session.username,
+        data:result,msg:"",pageAddMovie:false,generslist:generslist});
       
     }
   else

@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="/stylesheets/moviesStyle.css">
+    <script src="https://kit.fontawesome.com/b789d2f351.js" crossorigin="anonymous"></script>
+   
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/css/bootstrap-select.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/js/bootstrap-select.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/js/i18n/defaults-*.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.17.1/moment.min.js"></script>  <!--using momentjs-->
+
+    <title>Subscriptions</title>
+</head>
+<body>
+    <% include partials/menu-nav.ejs%>
+  <% include partials/subscriptions-navbar.ejs%>
+
+  <div class="team-boxed">
+    <div class="container">
+        <div class="intro">
+            <h3 class="text-center" id="title">Subscriptions</h3>
+        </div>
+        <%if(data.length>0){%>
+        <div class="row people">
+          <% data.forEach(function(el,index) { %>
+            <div class="col-md-6 col-lg-4 item">
+                <div class="box">
+                    <h4 class="name"><%=el.Name%></h4>
+<!--start-->
+                    <p>
+                      <a class="btn btn-primary" data-toggle="collapse" href="#collapseExample<%= index%>" role="button" aria-expanded="false" onclick="reply_click(this)" data-member-id="<%= el.memberid%>" aria-controls="collapseExample<%= index%>">
+                        Subscribe on new movie
+                      </a>
+                    </p>
+                    <div class="collapse" id="collapseExample<%= index%>">
+                      <div class="card card-body">
+                        <form action="/subscriptions/addSubscription" method="POST">
+                          <input type="hidden" name="memberid" value="<%= el.memberid%>">
+                          <div class="form-group">
+                              <label for="name"><strong>Movie title</strong></label>
+                              <select class="form-control form-select-sm p-2 w-100" aria-label=".form-select-sm" name="movieid" id="moviename<%= el.memberid%>" required="">
+                                  <option selected="">Open this select menu</option>
+                              </select>
+                          </div>
+
+                          <div class="form-group">
+                              <label for="date"><strong>Date</strong></label>
+                              <input type="date" id="date" name="date" class="form-control" placeholder="Enter a date" required="">
+                          </div>
+                          <button class="btn btn-primary btn-sm mt-2" type="submit">
+                              Subscribe
+                          </button>
+                      </form>
+                      </div>
+                    </div>
+
+                   <!--end-->
+                    <p class="description">
+                        City:<%= el.City %> <br>
+                        Email:<%= el.Email %> <br><br>
+                       <% if(el.Movies.length >0){%>
+                        Movies watched:<br>
+                        <% for(let i=0;i<el.Movies.length;i++) { %>
+                          
+                        <a href="/movies/searchMovies/<%= el.Movies[i].movieId %>"><%= el.Movies[i].name %></a>
+                         ,
+                        <%= el.Movies[i].date.substring(0,10) %> <br>
+                        <%}%>
+                      <%}%>
+                    </p>
+                    <div class="social">
+                      <button type="button"  class="btn btn-link"  data-whatever="<%= el.memberid %>" data-toggle="modal" data-target="#ModalUpdateMemberForm">
+                          <i class="fas fa-edit" id="editIcon"></i>
+                        </button>
+                        <a class="delete_button" href="/subscriptions/deleteMember/<%= el.memberid%>"><i class="fas fa-trash-alt" id="deleteIcon"></i></a>
+                    </div>
+                </div>
+            </div>
+            <% }) %>
+            </div>
+        </div>
+        <% } %>
+        <%if(data.length===0){%>
+            <div class="alert alert-success">
+                <p><b><%= msg %></b></p>
+            </div>
+            <%}%>
+        </div>
+    </div>
+</div>
+
+
+<div id="ModalUpdateMemberForm" class="modal fade">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Update Member</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+            <div class="modal-body">
+                <form class="form-group" method="POST" action="/subscriptions/updateMember">
+                       <% include partials/addOrUpdateMember.ejs%>  
+                </form>
+              
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+  </div><!-- /.modal -->
+
+
+<script src="/javascripts/subscriptions.js"></script>
+</body>
+</html>

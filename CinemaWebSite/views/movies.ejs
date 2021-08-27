@@ -44,7 +44,7 @@
                         The movie was watched by subscribers:<br>
                         <% for(let i=0;i<el.subscriptions.length;i++) { %>
                           
-                        <a href="/subscribers/<%= el.subscriptions[i].name %>"><%= el.subscriptions[i].name %></a>
+                        <a href="/subscriptions/searchMember/<%= el.subscriptions[i]._id %>"><%= el.subscriptions[i].name %></a>
                          ,
                         <%= el.subscriptions[i].date.substring(0,10) %> <br>
                         <%}%>

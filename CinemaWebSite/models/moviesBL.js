@@ -6,6 +6,11 @@ const MoviesURL='http://localhost:8000/api/movies/';//URL to Subscriptions WS->m
 
 
 
+/**
+ * 
+ * @returns  all movies in a list. Each movie has it’s name, year, image, and a list of
+all the subscriptions that watched that movies (name + year)
+ */
 exports.getAllMovies=async()=>
 {
  let allMovies=await subscriptionsRestAPI.getAll(MoviesURL);
@@ -20,8 +25,17 @@ exports.getAllMovies=async()=>
      }
  })
  const moviesData = await Promise.all(movies);
- 
+
   return moviesData; 
+}
+/**
+ * 
+ * @returns  all movies in a list. Each movie has it’s name, year, image, Without subscribers.
+ */
+exports.getMovies=async()=>
+{
+ let allMovies=await subscriptionsRestAPI.getAll(MoviesURL);
+  return allMovies.data;
 }
 exports.searchMovies=async(obj)=>
 {
@@ -30,6 +44,16 @@ exports.searchMovies=async(obj)=>
           return ( isSameNames(x.moviename,obj.moviename) || obj.moviename==="");
         })
         return result;
+}
+exports.searchMovieById=async(movieid)=>
+{
+        let arrResult=[];
+        let allMovies=await this.getAllMovies();
+        let result= allMovies.find(x=>x.movieid===movieid);
+        
+        arrResult.push(result);
+       
+        return arrResult;
 }
 exports.addMovie=async(obj)=>
 {
@@ -52,7 +76,26 @@ exports.getMovieById=async(id)=>
  let movie=await subscriptionsRestAPI.getById(id,MoviesURL);
   return movie.data; 
 }
-
+exports.getGenersList=async ()=>{
+  let allMovies=await subscriptionsRestAPI.getAll(MoviesURL);
+  let data=allMovies.data;
+  let result= data.map(x=>x.Genres)
+  var mySet = new Set();
+  result.forEach(element => {
+    if(Array.isArray(element))
+    {
+      element.forEach(x => {
+         mySet.add(x);
+          });
+    }
+    else
+    { 
+      mySet.add(element);
+    }
+  });
+ 
+  return mySet;
+}
 function isSameNames (x,y){
   
     return x.toLowerCase().includes(y.toLowerCase());  
@@ -89,27 +132,4 @@ function findDateWatch(arrMovies,movieid){
    return arrDate[0].date
 
  }
- exports.getGenersList=async ()=>{
-  let allMovies=await subscriptionsRestAPI.getAll(MoviesURL);
-  let data=allMovies.data;
-  let result= data.map(x=>x.Genres)
-  var mySet = new Set();
-  result.forEach(element => {
-    if(Array.isArray(element))
-    {
-      element.forEach(x => {
-         mySet.add(x);
-          });
-    }
-    else
-    { 
-      mySet.add(element);
-    }
-  });
- 
-  return mySet;
-}
-
-
-
-//this.getMovieById('6118adbb9de8931e843ca68f');
+//this.searchMovieById('611ad0742d287441d433ce61');
